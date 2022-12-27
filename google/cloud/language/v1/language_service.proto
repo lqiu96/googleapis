@@ -46,37 +46,16 @@ service LanguageService {
   // Finds named entities (currently proper names and common nouns) in the text
   // along with entity types, salience, mentions for each entity, and
   // other properties.
-  rpc AnalyzeEntities(AnalyzeEntitiesRequest) returns (AnalyzeEntitiesResponse) {
-    option (google.api.http) = {
-      post: "/v1/documents:analyzeEntities"
-      body: "*"
-    };
-    option (google.api.method_signature) = "document,encoding_type";
-    option (google.api.method_signature) = "document";
-  }
+  rpc AnalyzeEntities(AnalyzeEntitiesRequest) returns (AnalyzeEntitiesResponse) {}
 
   // Finds entities, similar to [AnalyzeEntities][google.cloud.language.v1.LanguageService.AnalyzeEntities] in the text and analyzes
   // sentiment associated with each entity and its mentions.
-  rpc AnalyzeEntitySentiment(AnalyzeEntitySentimentRequest) returns (AnalyzeEntitySentimentResponse) {
-    option (google.api.http) = {
-      post: "/v1/documents:analyzeEntitySentiment"
-      body: "*"
-    };
-    option (google.api.method_signature) = "document,encoding_type";
-    option (google.api.method_signature) = "document";
-  }
+  rpc AnalyzeEntitySentiment(AnalyzeEntitySentimentRequest) returns (AnalyzeEntitySentimentResponse) {}
 
   // Analyzes the syntax of the text and provides sentence boundaries and
   // tokenization along with part of speech tags, dependency trees, and other
   // properties.
-  rpc AnalyzeSyntax(AnalyzeSyntaxRequest) returns (AnalyzeSyntaxResponse) {
-    option (google.api.http) = {
-      post: "/v1/documents:analyzeSyntax"
-      body: "*"
-    };
-    option (google.api.method_signature) = "document,encoding_type";
-    option (google.api.method_signature) = "document";
-  }
+  rpc AnalyzeSyntax(AnalyzeSyntaxRequest) returns (AnalyzeSyntaxResponse) {}
 
   // Classifies a document into categories.
   rpc ClassifyText(ClassifyTextRequest) returns (ClassifyTextResponse) {
