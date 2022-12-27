@@ -282,10 +282,15 @@ grpc_java_repositories()
 # Must go AFTER java-gax, since both java gax and gapic-generator are written in java and may conflict.
 _gapic_generator_java_version = "2.11.0"
 
-http_archive(
-    name = "gapic_generator_java",
-    strip_prefix = "gapic-generator-java-%s" % _gapic_generator_java_version,
-    urls = ["https://github.com/googleapis/gapic-generator-java/archive/v%s.zip" % _gapic_generator_java_version],
+#http_archive(
+#    name = "gapic_generator_java",
+#    strip_prefix = "gapic-generator-java-%s" % _gapic_generator_java_version,
+#    urls = ["https://github.com/googleapis/gapic-generator-java/archive/v%s.zip" % _gapic_generator_java_version],
+#)
+
+local_repository(
+  name = "gapic_generator_java",
+  path = "/Users/lawrenceqiu/IdeaProjects/gapic-generator-java",
 )
 
 load("@gapic_generator_java//:repositories.bzl", "gapic_generator_java_repositories")

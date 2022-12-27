@@ -34,69 +34,28 @@ service LanguageService {
       "https://www.googleapis.com/auth/cloud-platform";
 
   // Analyzes the sentiment of the provided text.
-  rpc AnalyzeSentiment(AnalyzeSentimentRequest) returns (AnalyzeSentimentResponse) {
-    option (google.api.http) = {
-      post: "/v1/documents:analyzeSentiment"
-      body: "*"
-    };
-    option (google.api.method_signature) = "document,encoding_type";
-    option (google.api.method_signature) = "document";
-  }
+  rpc AnalyzeSentiment(AnalyzeSentimentRequest) returns (AnalyzeSentimentResponse) {}
 
   // Finds named entities (currently proper names and common nouns) in the text
   // along with entity types, salience, mentions for each entity, and
   // other properties.
-  rpc AnalyzeEntities(AnalyzeEntitiesRequest) returns (AnalyzeEntitiesResponse) {
-    option (google.api.http) = {
-      post: "/v1/documents:analyzeEntities"
-      body: "*"
-    };
-    option (google.api.method_signature) = "document,encoding_type";
-    option (google.api.method_signature) = "document";
-  }
+  rpc AnalyzeEntities(AnalyzeEntitiesRequest) returns (AnalyzeEntitiesResponse) {}
 
   // Finds entities, similar to [AnalyzeEntities][google.cloud.language.v1.LanguageService.AnalyzeEntities] in the text and analyzes
   // sentiment associated with each entity and its mentions.
-  rpc AnalyzeEntitySentiment(AnalyzeEntitySentimentRequest) returns (AnalyzeEntitySentimentResponse) {
-    option (google.api.http) = {
-      post: "/v1/documents:analyzeEntitySentiment"
-      body: "*"
-    };
-    option (google.api.method_signature) = "document,encoding_type";
-    option (google.api.method_signature) = "document";
-  }
+  rpc AnalyzeEntitySentiment(AnalyzeEntitySentimentRequest) returns (AnalyzeEntitySentimentResponse) {}
 
   // Analyzes the syntax of the text and provides sentence boundaries and
   // tokenization along with part of speech tags, dependency trees, and other
   // properties.
-  rpc AnalyzeSyntax(AnalyzeSyntaxRequest) returns (AnalyzeSyntaxResponse) {
-    option (google.api.http) = {
-      post: "/v1/documents:analyzeSyntax"
-      body: "*"
-    };
-    option (google.api.method_signature) = "document,encoding_type";
-    option (google.api.method_signature) = "document";
-  }
+  rpc AnalyzeSyntax(AnalyzeSyntaxRequest) returns (AnalyzeSyntaxResponse) {}
 
   // Classifies a document into categories.
-  rpc ClassifyText(ClassifyTextRequest) returns (ClassifyTextResponse) {
-    option (google.api.http) = {
-      post: "/v1/documents:classifyText"
-      body: "*"
-    };
-    option (google.api.method_signature) = "document";
-  }
+  rpc ClassifyText(ClassifyTextRequest) returns (ClassifyTextResponse) {}
 
   // A convenience method that provides all the features that analyzeSentiment,
   // analyzeEntities, and analyzeSyntax provide in one call.
-  rpc AnnotateText(AnnotateTextRequest) returns (AnnotateTextResponse) {
-    option (google.api.http) = {
-      post: "/v1/documents:annotateText"
-      body: "*"
-    };
-    option (google.api.method_signature) = "document,features,encoding_type";
-    option (google.api.method_signature) = "document,features";
-  }
+  rpc AnnotateText(AnnotateTextRequest) returns (AnnotateTextResponse) {}
 }
 
 // Represents the input to API methods.
