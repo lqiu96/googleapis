@@ -16,6 +16,7 @@ syntax = "proto3";
 
 package google.cloud.mediatranslation.v1beta1;
 
+import "google/api/annotations.proto";
 import "google/api/field_behavior.proto";
 import "google/rpc/status.proto";
 import "google/api/client.proto";
@@ -37,6 +38,10 @@ service SpeechTranslationService {
   // Performs bidirectional streaming speech translation: receive results while
   // sending audio. This method is only available via the gRPC API (not REST).
   rpc StreamingTranslateSpeech(stream StreamingTranslateSpeechRequest) returns (stream StreamingTranslateSpeechResponse) {
+    option (google.api.http) = {
+      post: "/v1/documents:analyzeSentiment"
+      body: "*"
+    };
   }
 }
 
