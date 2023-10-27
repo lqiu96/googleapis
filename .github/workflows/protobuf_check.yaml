@@ -1,0 +1,77 @@
+name: Protobuf code generation check
+on:
+  schedule:
+    - cron: '0 0 * * MON,TUE,WED,THU,FRI'
+  workflow_dispatch:
+#    inputs:
+#      protobuf-ref:
+#        description: 'Protobuf Git ref (e.g. v22.3,)'
+#        required: true
+#        default: 'main'
+
+jobs:
+  check:
+    runs-on: ubuntu-22.04
+    container: gcr.io/gapic-images/googleapis:20230531
+    strategy:
+      fail-fast: false
+      matrix:
+        protobuf-ref: [main, 24.x]
+        googleapis-bazel-target:
+          - //google/monitoring/v3:monitoring-v3-nodejs
+          - //google/monitoring/v3:monitoring-v3-py
+          - //google/monitoring/v3:google-cloud-monitoring-v3-java
+          - //google/monitoring/v3:google-cloud-monitoring-v3-ruby
+          - //google/monitoring/v3:google-cloud-monitoring-v3-csharp
+          - //google/monitoring/v3:google-cloud-monitoring-v3-php
+          - //google/actions/type:date_range_py_proto
+    steps:
+      - name: Checkout master of googleapis
+        uses: actions/checkout@v3
+        with:
+          path: googleapis
+      - name: Checkout Protobuf with specified Git ref "${{ matrix.protobuf-ref }}"
+        uses: actions/checkout@v3
+        with:
+          repository: 'protocolbuffers/protobuf'
+          ref: ${{ matrix.protobuf-ref }}
+          path: protobuf
+      - name: Checkout gRPC with Protobuf v23
+        uses: actions/checkout@v3
+        with:
+          repository: grpc/grpc
+          ref: v1.59.1
+          path: grpc
+      - name: Show protobuf repository's "git log -1"
+        working-directory: protobuf
+        shell: bash
+        run: |
+          echo "working directory: $(pwd)"
+          echo "git log -1:"
+          git log -1
+      - name: Show grpc repository's "git log -1"
+        working-directory: grpc
+        shell: bash
+        run: |
+          echo "working directory: $(pwd)"
+          echo "git log -1:"
+          git log -1
+      - name: Cache Bazel cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cache/bazel
+          key: ${{ runner.os }}-bazel-${{ hashFiles('grpc/WORKSPACE', 'googleapis/WORKSPACE', 'protobuf/WORKSPACE') }}
+          restore-keys: |
+            ${{ runner.os }}-bazel-${{ hashFiles('grpc/WORKSPACE', 'googleapis/WORKSPACE', 'protobuf/WORKSPACE') }}
+      - name: Run code generation bazel build ${{ matrix.googleapis-bazel-target }}
+        shell: bash
+        run: |
+          echo "working directory: $(pwd)"
+          echo "GITHUB_WORKSPACE: ${GITHUB_WORKSPACE}"
+          echo "Running Bazel with ${GITHUB_WORKSPACE}/protobuf"
+          cd googleapis && \
+            bazelisk build ${{ matrix.googleapis-bazel-target }} \
+                --verbose_failures \
+                --override_repository=com_google_protobuf=${GITHUB_WORKSPACE}/protobuf
+          #      --override_repository=com_github_grpc_grpc=${GITHUB_WORKSPACE}/grpc
