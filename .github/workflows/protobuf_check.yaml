@@ -3,11 +3,6 @@ on:
   schedule:
     - cron: '0 0 * * MON,TUE,WED,THU,FRI'
   workflow_dispatch:
-#    inputs:
-#      protobuf-ref:
-#        description: 'Protobuf Git ref (e.g. v22.3,)'
-#        required: true
-#        default: 'main'
 
 jobs:
   check:
@@ -36,7 +31,7 @@ jobs:
           repository: 'protocolbuffers/protobuf'
           ref: ${{ matrix.protobuf-ref }}
           path: protobuf
-      - name: Checkout gRPC with Protobuf v23
+      - name: Checkout gRPC with Protobuf v24
         uses: actions/checkout@v3
         with:
           repository: grpc/grpc
@@ -74,4 +69,4 @@ jobs:
             bazelisk build ${{ matrix.googleapis-bazel-target }} \
                 --verbose_failures \
                 --override_repository=com_google_protobuf=${GITHUB_WORKSPACE}/protobuf
-          #      --override_repository=com_github_grpc_grpc=${GITHUB_WORKSPACE}/grpc
+                --override_repository=com_github_grpc_grpc=${GITHUB_WORKSPACE}/grpc
