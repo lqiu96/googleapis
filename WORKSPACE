@@ -128,9 +128,9 @@ http_archive(
     ],
 )
 
-_grpc_version = "1.55.1"
+_grpc_version = "1.59.1"
 
-_grpc_sha256 = "17c0685da231917a7b3be2671a7b13b550a85fdda5e475313264c5f51c4da3f8"
+_grpc_sha256 = "cb7994e6fb2ddf6d07ffdbdff1a8e1b7aa51ee241d6fc8767c3102536b7a24c9"
 
 http_archive(
     name = "com_github_grpc_grpc",
@@ -143,9 +143,9 @@ http_archive(
 # instantiated in grpc_deps().
 http_archive(
     name = "com_google_protobuf",
-    sha256 = "0b0395d34e000f1229679e10d984ed7913078f3dd7f26cf0476467f5e65716f4",
-    strip_prefix = "protobuf-23.2",
-    urls = ["https://github.com/protocolbuffers/protobuf/archive/v23.2.tar.gz"],
+    sha256 = "7beed9c511d632cff7c22ac0094dd7720e550153039d5da7e059bcceb488474a",
+    strip_prefix = "protobuf-25.0",
+    urls = ["https://github.com/protocolbuffers/protobuf/archive/v25.0.tar.gz"],
 )
 
 load("@com_github_grpc_grpc//bazel:grpc_deps.bzl", "grpc_deps")
