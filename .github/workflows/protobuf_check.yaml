@@ -11,7 +11,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        protobuf-ref: [main, 24.x]
+        protobuf-ref: [main, v25.0]
         googleapis-bazel-target:
           - //google/monitoring/v3:monitoring-v3-nodejs
           - //google/monitoring/v3:monitoring-v3-py
@@ -31,7 +31,7 @@ jobs:
           repository: 'protocolbuffers/protobuf'
           ref: ${{ matrix.protobuf-ref }}
           path: protobuf
-      - name: Checkout gRPC with Protobuf v24
+      - name: Checkout gRPC with Protobuf v25
         uses: actions/checkout@v3
         with:
           repository: grpc/grpc
